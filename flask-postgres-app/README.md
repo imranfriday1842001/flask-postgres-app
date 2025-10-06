@@ -22,8 +22,7 @@ It’s a perfect end-to-end example for learning how to build, containerize, and
 ## Project Structure
 
 flask-postgres-app/
-│
-├── app/
+│ ├── app/
 │ └── app.py
 ├── Dockerfile
 ├── docker-compose.yml

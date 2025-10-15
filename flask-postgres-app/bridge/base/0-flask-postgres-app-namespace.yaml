@@ -1,0 +1,8 @@
+#! 0-flask-postgres-app-namespace.yaml
+# Generated code, do not edit
+apiVersion: v1
+kind: Namespace
+metadata:
+    name: flask-postgres-app
+    labels:
+        com.docker.compose.project: flask-postgres-app

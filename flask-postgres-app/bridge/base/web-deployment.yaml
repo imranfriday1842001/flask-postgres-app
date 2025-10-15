@@ -1,0 +1,45 @@
+#! web-deployment.yaml
+# Generated code, do not edit
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: web
+    namespace: flask-postgres-app
+    labels:
+        com.docker.compose.project: flask-postgres-app
+        com.docker.compose.service: web
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            com.docker.compose.project: flask-postgres-app
+            com.docker.compose.service: web
+    strategy:
+        type: Recreate
+    template:
+        metadata:
+            labels:
+                com.docker.compose.project: flask-postgres-app
+                com.docker.compose.service: web
+                com.docker.compose.network.app-network: "true"
+        spec:
+            restartPolicy: unless-stopped
+            containers:
+                - name: flask-postgres-app-web
+                  image: flask-postgres-app-web
+                  imagePullPolicy: IfNotPresent
+                  env:
+                    - name: DATABASE_URL
+                      value: "postgresql://postgres:postgres@db:5432/flask_db"
+                    - name: FLASK_ENV
+                      value: "development"
+                  ports:
+                    - name: web-5000
+                      containerPort: 5000
+                  volumeMounts:
+                    - name: app
+                      mountPath: /app
+            volumes:
+                - name: app
+                  hostPath:
+                    path: /Users/imranbai/Projects/flask-postgres-app/app
